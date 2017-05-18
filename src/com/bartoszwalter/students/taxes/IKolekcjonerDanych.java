@@ -1,7 +1,8 @@
 package com.bartoszwalter.students.taxes;
 
+import java.io.IOException;
+
 public interface IKolekcjonerDanych {
-    void getKwotaDochodu();
-    void getTypUmowy();
-    void przekazDane();
+    void zbierzDane();
+    Umowa przekazDane() throws IOException;
 }

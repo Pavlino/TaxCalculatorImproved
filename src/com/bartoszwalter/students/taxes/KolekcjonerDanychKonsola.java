@@ -15,7 +15,7 @@ public class KolekcjonerDanychKonsola implements IKolekcjonerDanych {
         bufferedReader = new BufferedReader(inputStreamReader);
     }
 
-    public void getKwotaDochodu() {
+    private void getKwotaDochodu() {
         System.out.print("Podaj kwotę dochodu: ");
         try {
             kwotaDochodu = Double.parseDouble(bufferedReader.readLine());
@@ -24,7 +24,7 @@ public class KolekcjonerDanychKonsola implements IKolekcjonerDanych {
         }
     }
 
-    public void getTypUmowy() {
+    private void getTypUmowy() {
         System.out.print("Typ umowy: (P)raca, (Z)lecenie: ");
         try {
             typUmowy = bufferedReader.readLine().charAt(0);
@@ -33,13 +33,21 @@ public class KolekcjonerDanychKonsola implements IKolekcjonerDanych {
         }
     }
 
-    public void przekazDane() {
-        //TODO: zwroc umowe do kalkulatora :(
+    public void zbierzDane() {
+        getTypUmowy();
+        getKwotaDochodu();
+    }
+
+    public Umowa przekazDane() throws IOException {
+        Umowa umowa;
         if (typUmowy == 'P') {
-            UmowaOPrace umowaOPrace = new UmowaOPrace(kwotaDochodu);
+            umowa = new UmowaOPrace(kwotaDochodu);
         } else if (typUmowy == 'Z') {
-            UmowaZlecenie umowaZlecenie = new UmowaZlecenie(kwotaDochodu);
+            umowa = new UmowaZlecenie(kwotaDochodu);
+        } else {
+            throw new IOException("Niepoprawny typ umowy");
         }
+        return umowa;
     }
 
 }
